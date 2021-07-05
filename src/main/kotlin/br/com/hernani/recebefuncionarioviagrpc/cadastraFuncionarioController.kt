@@ -22,7 +22,7 @@ class cadastraFuncionarioController(
         @QueryValue cpf: String,
         @QueryValue idade: Int,
         @QueryValue cargo: Cargo
-    ): String {
+    ): Response {
         logger.info("Iniciando requisicao")
         val request = FuncionarioRequest.newBuilder()
             .setNome(nome)
@@ -33,8 +33,13 @@ class cadastraFuncionarioController(
 
         val response = grpcClient.cadastraFuncionario(request);
         logger.info("requisicao finalizada com sucesso, id funcionario: $response")
-        return "Funcionario cadastrado com sucesso, ID: $response"
+        val funcionarioResponse = Response("Funcionario cadastrado com sucesso", response.id)
+        return funcionarioResponse
     }
 }
 
+data class Response(
+    val mensagem: String,
+    val id: Long
+)
 
