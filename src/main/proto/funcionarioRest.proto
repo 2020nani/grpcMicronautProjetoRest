@@ -9,6 +9,11 @@ service FuncionarioService {
   rpc cadastraFuncionario (FuncionarioRequest) returns (FuncionarioResponse) {}
 }
 
+message ErrorDetails {
+  int32 code = 1;
+  string message = 2;
+}
+
 enum Cargo{
   DEV = 0;
   ANALISTA = 1;
